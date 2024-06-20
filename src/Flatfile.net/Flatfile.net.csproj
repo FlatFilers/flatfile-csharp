@@ -5,7 +5,7 @@
         <TargetFrameworks>net8.0;net7.0;net6.0;</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <NuGetAudit>false</NuGetAudit>
-        <Version>0.0.1</Version>
+        <Version>0.0.4420</Version>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/FlatFilers/flatfile-csharp</PackageProjectUrl>
     </PropertyGroup>
