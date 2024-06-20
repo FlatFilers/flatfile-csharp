@@ -18,24 +18,23 @@ Using the NuGet Command Line Interface (CLI):
 nuget install Flatfile.net
 ```
 
-## Instantiation
-Instantiate the SDK using the `Flatfile` client class. Note that all
-of the SDK methods are awaitable!
+## Documentation
+
+API reference documentation is available [here](https://flatfile.com/docs/overview).
+
+## Usage
+
+Below are code snippets of how you can use the C# SDK.
 
 ```csharp
 using Flatfile.net;
 
 Flatfile flatfile = new Flatfile("YOUR_API_KEY")
-```
-
-## HTTP Client
-You can override the HttpClient by passing in `ClientOptions`.
-
-```csharp
-flatfile = new Flatfile("YOUR_API_KEY", new ClientOptions{
-    HttpClient = ... // Override the Http Client
-    BaseURL = ... // Override the Base URL
-})
+Agent agent = flatfile.Agent.ListAsync(
+    new ListAgentsRequest{
+        EnvironmentId = "..."
+    }
+);
 ```
 
 ## Exception Handling
@@ -53,22 +52,9 @@ try {
 }
 ```
 
-## Usage
+## Advanced
 
-Below are code snippets of how you can use the C# SDK.
-
-```csharp
-using Flatfile.net;
-
-Flatfile flatfile = new Flatfile("YOUR_API_KEY")
-Agent agent = flatfile.Agent.ListAsync(
-    new ListAgentsRequest{
-        EnvironmentId = "..."
-    }
-);
-```
-
-## Retries
+### Retries
 429 Rate Limit, and >=500 Internal errors will all be
 retried twice with exponential backoff. You can override this behavior
 globally or per-request.
@@ -79,7 +65,7 @@ var flatfile = new Flatfile("...", new ClientOptions{
 });
 ```
 
-## Timeouts
+### Timeouts
 The SDK defaults to a 60s timeout. You can override this behaviour
 globally or per-request.
 
@@ -87,6 +73,16 @@ globally or per-request.
 var flatfile = new Flatfile("...", new ClientOptions{
     TimeoutInSeconds = 20 // Lower timeout
 });
+```
+
+### HTTP Client
+You can override the HttpClient by passing in `ClientOptions`.
+
+```csharp
+flatfile = new Flatfile("YOUR_API_KEY", new ClientOptions{
+    HttpClient = ... // Override the Http Client
+    BaseURL = ... // Override the Base URL
+})
 ```
 
 ## Contributing
