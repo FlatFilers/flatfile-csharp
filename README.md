@@ -1,7 +1,7 @@
 # Flatfile .NET Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
-[![NuGet Version](https://img.shields.io/nuget/v/Flatfile.net)]
+![NuGet Version](https://img.shields.io/nuget/v/Flatfile.net)
 
 
 The official Flatfile C# library, supporting .NET Standard, .NET Core, and .NET Framework.
