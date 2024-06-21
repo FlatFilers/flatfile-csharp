@@ -22,17 +22,17 @@ public class ViewsClient
         var _query = new Dictionary<string, object>() { { "sheetId", request.SheetId }, };
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/views",
                 Query = _query
             }
         );
@@ -53,7 +53,7 @@ public class ViewsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/views",
                 Body = request
             }
         );
@@ -71,7 +71,7 @@ public class ViewsClient
     public async Task<ViewResponse> GetAsync(string viewId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{viewId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/views/{viewId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -90,7 +90,7 @@ public class ViewsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{viewId}",
+                Path = $"/views/{viewId}",
                 Body = request
             }
         );
@@ -108,7 +108,7 @@ public class ViewsClient
     public async Task<Success> DeleteAsync(string viewId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{viewId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/views/{viewId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

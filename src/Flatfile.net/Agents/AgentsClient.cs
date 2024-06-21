@@ -24,7 +24,7 @@ public class AgentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/agents",
                 Query = _query
             }
         );
@@ -46,7 +46,7 @@ public class AgentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/agents",
                 Body = request.Body,
                 Query = _query
             }
@@ -69,7 +69,7 @@ public class AgentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/{agentId}",
+                Path = $"/agents/{agentId}",
                 Query = _query
             }
         );
@@ -87,7 +87,7 @@ public class AgentsClient
     public async Task<ListActorRolesResponse> ListAgentRolesAsync(string agentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{agentId}/roles" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/agents/{agentId}/roles" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -109,7 +109,7 @@ public class AgentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = $"/{agentId}/roles",
+                Path = $"/agents/{agentId}/roles",
                 Body = request
             }
         );
@@ -130,7 +130,7 @@ public class AgentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Delete,
-                Path = $"/{agentId}/roles/{actorRoleId}"
+                Path = $"/agents/{agentId}/roles/{actorRoleId}"
             }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
@@ -154,7 +154,7 @@ public class AgentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/{agentId}/logs",
+                Path = $"/agents/{agentId}/logs",
                 Query = _query
             }
         );
@@ -179,7 +179,7 @@ public class AgentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/log/{eventId}",
+                Path = $"/agents/log/{eventId}",
                 Query = _query
             }
         );
@@ -205,21 +205,21 @@ public class AgentsClient
         }
         if (request.Success != null)
         {
-            _query["success"] = request.Success;
+            _query["success"] = request.Success.ToString();
         }
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "/logs",
+                Path = "/agents/logs",
                 Query = _query
             }
         );
@@ -245,21 +245,21 @@ public class AgentsClient
         }
         if (request.Success != null)
         {
-            _query["success"] = request.Success;
+            _query["success"] = request.Success.ToString();
         }
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "/executions",
+                Path = "/agents/executions",
                 Query = _query
             }
         );
@@ -284,7 +284,7 @@ public class AgentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Delete,
-                Path = $"/{agentId}",
+                Path = $"/agents/{agentId}",
                 Query = _query
             }
         );

@@ -22,11 +22,11 @@ public class AssistantClient
         var _query = new Dictionary<string, object>() { };
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest

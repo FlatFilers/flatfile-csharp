@@ -28,7 +28,7 @@ public class GuestsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "/guests",
+                Path = "guests",
                 Query = _query
             }
         );
@@ -49,7 +49,7 @@ public class GuestsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "/guests",
+                Path = "guests",
                 Body = request
             }
         );
@@ -67,7 +67,7 @@ public class GuestsClient
     public async Task<GuestResponse> GetAsync(string guestId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/guests/{guestId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"guests/{guestId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -83,7 +83,7 @@ public class GuestsClient
     public async Task<Success> DeleteAsync(string guestId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/guests/{guestId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"guests/{guestId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -102,7 +102,7 @@ public class GuestsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/guests/{guestId}",
+                Path = $"guests/{guestId}",
                 Body = request
             }
         );
@@ -131,7 +131,7 @@ public class GuestsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/guests/{guestId}/token",
+                Path = $"guests/{guestId}/token",
                 Query = _query
             }
         );
@@ -149,7 +149,7 @@ public class GuestsClient
     public async Task<ListActorRolesResponse> ListGuestRolesAsync(string guestId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/guests/{guestId}/roles" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"guests/{guestId}/roles" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -171,7 +171,7 @@ public class GuestsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = $"/guests/{guestId}/roles",
+                Path = $"guests/{guestId}/roles",
                 Body = request
             }
         );
@@ -192,7 +192,7 @@ public class GuestsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Delete,
-                Path = $"/guests/{guestId}/roles/{actorRoleId}"
+                Path = $"guests/{guestId}/roles/{actorRoleId}"
             }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
@@ -212,7 +212,7 @@ public class GuestsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "/invitations",
+                Path = "invitations",
                 Body = request
             }
         );

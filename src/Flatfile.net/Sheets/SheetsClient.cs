@@ -24,7 +24,7 @@ public class SheetsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/sheets",
                 Query = _query
             }
         );
@@ -42,7 +42,7 @@ public class SheetsClient
     public async Task<SheetResponse> GetAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{sheetId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/sheets/{sheetId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -58,7 +58,7 @@ public class SheetsClient
     public async Task<Success> DeleteAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{sheetId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/sheets/{sheetId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -74,7 +74,11 @@ public class SheetsClient
     public async Task<Success> ValidateAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"/{sheetId}/validate" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Post,
+                Path = $"/sheets/{sheetId}/validate"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -112,11 +116,11 @@ public class SheetsClient
         }
         if (request.SortDirection != null)
         {
-            _query["sortDirection"] = request.SortDirection;
+            _query["sortDirection"] = request.SortDirection.ToString();
         }
         if (request.Filter != null)
         {
-            _query["filter"] = request.Filter;
+            _query["filter"] = request.Filter.ToString();
         }
         if (request.FilterField != null)
         {
@@ -138,7 +142,7 @@ public class SheetsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/{sheetId}/download",
+                Path = $"/sheets/{sheetId}/download",
                 Query = _query
             }
         );
@@ -171,7 +175,7 @@ public class SheetsClient
         }
         if (request.Filter != null)
         {
-            _query["filter"] = request.Filter;
+            _query["filter"] = request.Filter.ToString();
         }
         if (request.FilterField != null)
         {
@@ -187,7 +191,7 @@ public class SheetsClient
         }
         if (request.ByField != null)
         {
-            _query["byField"] = request.ByField;
+            _query["byField"] = request.ByField.ToString();
         }
         if (request.Q != null)
         {
@@ -197,7 +201,7 @@ public class SheetsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/{sheetId}/counts",
+                Path = $"/sheets/{sheetId}/counts",
                 Query = _query
             }
         );
@@ -220,13 +224,13 @@ public class SheetsClient
         var _query = new Dictionary<string, object>() { };
         if (request.Completed != null)
         {
-            _query["completed"] = request.Completed;
+            _query["completed"] = request.Completed.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/{sheetId}/commits",
+                Path = $"/sheets/{sheetId}/commits",
                 Query = _query
             }
         );
@@ -244,7 +248,7 @@ public class SheetsClient
     public async Task<Success> LockSheetAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"/{sheetId}/lock" }
+            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"/sheets/{sheetId}/lock" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -260,7 +264,11 @@ public class SheetsClient
     public async Task<Success> UnlockSheetAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"/{sheetId}/unlock" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Post,
+                Path = $"/sheets/{sheetId}/unlock"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -292,11 +300,11 @@ public class SheetsClient
         }
         if (request.SortDirection != null)
         {
-            _query["sortDirection"] = request.SortDirection;
+            _query["sortDirection"] = request.SortDirection.ToString();
         }
         if (request.Filter != null)
         {
-            _query["filter"] = request.Filter;
+            _query["filter"] = request.Filter.ToString();
         }
         if (request.FilterField != null)
         {
@@ -304,15 +312,15 @@ public class SheetsClient
         }
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         if (request.IncludeCounts != null)
         {
-            _query["includeCounts"] = request.IncludeCounts;
+            _query["includeCounts"] = request.IncludeCounts.ToString();
         }
         if (request.SearchValue != null)
         {
@@ -322,7 +330,7 @@ public class SheetsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/{sheetId}/cells",
+                Path = $"/sheets/{sheetId}/cells",
                 Query = _query
             }
         );
@@ -343,7 +351,7 @@ public class SheetsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{sheetId}",
+                Path = $"/sheets/{sheetId}",
                 Body = request
             }
         );

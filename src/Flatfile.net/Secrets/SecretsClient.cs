@@ -32,7 +32,7 @@ public class SecretsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/secrets",
                 Query = _query
             }
         );
@@ -53,7 +53,7 @@ public class SecretsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/secrets",
                 Body = request
             }
         );
@@ -71,7 +71,7 @@ public class SecretsClient
     public async Task<SecretsResponse> DeleteAsync(string secretId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{secretId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/secrets/{secretId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

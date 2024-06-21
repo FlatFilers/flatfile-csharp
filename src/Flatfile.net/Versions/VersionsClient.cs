@@ -20,7 +20,7 @@ public class VersionsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/versions",
                 Body = request
             }
         );

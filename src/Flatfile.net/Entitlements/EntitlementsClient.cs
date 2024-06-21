@@ -24,7 +24,7 @@ public class EntitlementsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/entitlements",
                 Query = _query
             }
         );

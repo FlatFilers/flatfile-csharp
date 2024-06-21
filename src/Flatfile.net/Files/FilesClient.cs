@@ -23,21 +23,21 @@ public class FilesClient
         }
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         if (request.Mode != null)
         {
-            _query["mode"] = request.Mode;
+            _query["mode"] = request.Mode.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/files",
                 Query = _query
             }
         );
@@ -52,7 +52,7 @@ public class FilesClient
     public async Task<FileResponse> UploadAsync(CreateFileRequest request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = "" }
+            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = "/files" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -65,7 +65,7 @@ public class FilesClient
     public async Task<FileResponse> GetAsync(string fileId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{fileId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/files/{fileId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -78,7 +78,7 @@ public class FilesClient
     public async Task<Success> DeleteAsync(string fileId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{fileId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/files/{fileId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -97,7 +97,7 @@ public class FilesClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{fileId}",
+                Path = $"/files/{fileId}",
                 Body = request
             }
         );
@@ -112,7 +112,7 @@ public class FilesClient
     public async void DownloadAsync(string fileId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{fileId}/download" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/files/{fileId}/download" }
         );
     }
 }

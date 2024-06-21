@@ -38,25 +38,25 @@ public class EventsClient
         }
         if (request.Since != null)
         {
-            _query["since"] = request.Since;
+            _query["since"] = request.Since.Value.ToString("o0");
         }
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         if (request.IncludeAcknowledged != null)
         {
-            _query["includeAcknowledged"] = request.IncludeAcknowledged;
+            _query["includeAcknowledged"] = request.IncludeAcknowledged.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "/events",
+                Path = "events",
                 Query = _query
             }
         );
@@ -74,7 +74,7 @@ public class EventsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "/events",
+                Path = "events",
                 Body = request
             }
         );
@@ -89,7 +89,7 @@ public class EventsClient
     public async Task<EventResponse> GetAsync(string eventId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/events/{eventId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"events/{eventId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -102,7 +102,7 @@ public class EventsClient
     public async Task<Success> AckAsync(string eventId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"/events/{eventId}/ack" }
+            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"events/{eventId}/ack" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -130,7 +130,7 @@ public class EventsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "/subscription",
+                Path = "subscription",
                 Query = _query
             }
         );

@@ -26,11 +26,11 @@ public class SpacesClient
         }
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         if (request.Search != null)
         {
@@ -42,25 +42,25 @@ public class SpacesClient
         }
         if (request.Archived != null)
         {
-            _query["archived"] = request.Archived;
+            _query["archived"] = request.Archived.ToString();
         }
         if (request.SortField != null)
         {
-            _query["sortField"] = request.SortField;
+            _query["sortField"] = request.SortField.ToString();
         }
         if (request.SortDirection != null)
         {
-            _query["sortDirection"] = request.SortDirection;
+            _query["sortDirection"] = request.SortDirection.ToString();
         }
         if (request.IsCollaborative != null)
         {
-            _query["isCollaborative"] = request.IsCollaborative;
+            _query["isCollaborative"] = request.IsCollaborative.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/spaces",
                 Query = _query
             }
         );
@@ -81,7 +81,7 @@ public class SpacesClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/spaces",
                 Body = request
             }
         );
@@ -99,7 +99,7 @@ public class SpacesClient
     public async Task<SpaceResponse> GetAsync(string spaceId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{spaceId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/spaces/{spaceId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -115,7 +115,7 @@ public class SpacesClient
     public async Task<Success> DeleteAsync(string spaceId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{spaceId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/spaces/{spaceId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -135,7 +135,7 @@ public class SpacesClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Delete,
-                Path = "",
+                Path = "/spaces",
                 Query = _query
             }
         );
@@ -156,7 +156,7 @@ public class SpacesClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{spaceId}",
+                Path = $"/spaces/{spaceId}",
                 Body = request
             }
         );
@@ -174,7 +174,11 @@ public class SpacesClient
     public async Task<Success> ArchiveSpaceAsync(string spaceId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"/{spaceId}/archive" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Post,
+                Path = $"/spaces/{spaceId}/archive"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

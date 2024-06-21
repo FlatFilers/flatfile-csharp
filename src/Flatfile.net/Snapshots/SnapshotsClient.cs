@@ -23,7 +23,7 @@ public class SnapshotsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/snapshots",
                 Body = request
             }
         );
@@ -45,7 +45,7 @@ public class SnapshotsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/snapshots",
                 Query = _query
             }
         );
@@ -73,7 +73,7 @@ public class SnapshotsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/{snapshotId}",
+                Path = $"/snapshots/{snapshotId}",
                 Query = _query
             }
         );
@@ -91,7 +91,11 @@ public class SnapshotsClient
     public async Task<Success> DeleteSnapshotAsync(string snapshotId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{snapshotId}" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Delete,
+                Path = $"/snapshots/{snapshotId}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -113,7 +117,7 @@ public class SnapshotsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = $"/{snapshotId}/restore",
+                Path = $"/snapshots/{snapshotId}/restore",
                 Body = request
             }
         );
@@ -136,21 +140,21 @@ public class SnapshotsClient
         var _query = new Dictionary<string, object>() { };
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         if (request.ChangeType != null)
         {
-            _query["changeType"] = request.ChangeType;
+            _query["changeType"] = request.ChangeType.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/{snapshotId}/records",
+                Path = $"/snapshots/{snapshotId}/records",
                 Query = _query
             }
         );

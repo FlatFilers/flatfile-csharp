@@ -20,7 +20,7 @@ public class AppsClient
     public async Task<AppsResponse> ListAsync()
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = "" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = "/apps" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -36,7 +36,7 @@ public class AppsClient
     public async Task<AppResponse> GetAsync(string appId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{appId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/apps/{appId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -55,7 +55,7 @@ public class AppsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{appId}",
+                Path = $"/apps/{appId}",
                 Body = request
             }
         );
@@ -76,7 +76,7 @@ public class AppsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/apps",
                 Body = request
             }
         );
@@ -94,7 +94,7 @@ public class AppsClient
     public async Task<SuccessResponse> DeleteAsync(string appId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{appId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/apps/{appId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

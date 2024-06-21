@@ -22,17 +22,17 @@ public class EnvironmentsClient
         var _query = new Dictionary<string, object>() { };
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/environments",
                 Query = _query
             }
         );
@@ -53,7 +53,7 @@ public class EnvironmentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/environments",
                 Body = request
             }
         );
@@ -80,7 +80,7 @@ public class EnvironmentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "/subscription-token",
+                Path = "/environments/subscription-token",
                 Query = _query
             }
         );
@@ -98,7 +98,11 @@ public class EnvironmentsClient
     public async Task<EnvironmentResponse> GetAsync(string environmentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{environmentId}" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Get,
+                Path = $"/environments/{environmentId}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -120,7 +124,7 @@ public class EnvironmentsClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{environmentId}",
+                Path = $"/environments/{environmentId}",
                 Body = request
             }
         );
@@ -138,7 +142,11 @@ public class EnvironmentsClient
     public async Task<Success> DeleteAsync(string environmentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{environmentId}" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Delete,
+                Path = $"/environments/{environmentId}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

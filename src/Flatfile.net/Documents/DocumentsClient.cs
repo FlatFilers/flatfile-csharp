@@ -17,10 +17,14 @@ public class DocumentsClient
     /// <summary>
     /// Returns all documents for a space
     /// </summary>
-    public async Task<ListDocumentsResponse> ListAsync()
+    public async Task<ListDocumentsResponse> ListAsync(string spaceId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = "" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Get,
+                Path = $"/spaces/{spaceId}/documents"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -33,13 +37,13 @@ public class DocumentsClient
     /// <summary>
     /// Add a new document to the space
     /// </summary>
-    public async Task<DocumentResponse> CreateAsync(DocumentConfig request)
+    public async Task<DocumentResponse> CreateAsync(string spaceId, DocumentConfig request)
     {
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = $"/spaces/{spaceId}/documents",
                 Body = request
             }
         );
@@ -54,10 +58,14 @@ public class DocumentsClient
     /// <summary>
     /// Returns a single document
     /// </summary>
-    public async Task<DocumentResponse> GetAsync(string documentId)
+    public async Task<DocumentResponse> GetAsync(string spaceId, string documentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{documentId}" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Get,
+                Path = $"/spaces/{spaceId}/documents/{documentId}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -70,13 +78,17 @@ public class DocumentsClient
     /// <summary>
     /// updates a single document, for only the body and title
     /// </summary>
-    public async Task<DocumentResponse> UpdateAsync(string documentId, DocumentConfig request)
+    public async Task<DocumentResponse> UpdateAsync(
+        string spaceId,
+        string documentId,
+        DocumentConfig request
+    )
     {
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{documentId}",
+                Path = $"/spaces/{spaceId}/documents/{documentId}",
                 Body = request
             }
         );
@@ -91,10 +103,14 @@ public class DocumentsClient
     /// <summary>
     /// Deletes a single document
     /// </summary>
-    public async Task<Success> DeleteAsync(string documentId)
+    public async Task<Success> DeleteAsync(string spaceId, string documentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{documentId}" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Delete,
+                Path = $"/spaces/{spaceId}/documents/{documentId}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

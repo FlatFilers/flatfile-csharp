@@ -23,7 +23,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/mapping",
                 Body = request
             }
         );
@@ -44,7 +44,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Delete,
-                Path = "",
+                Path = "/mapping",
                 Body = request
             }
         );
@@ -64,11 +64,11 @@ public class MappingClient
         var _query = new Dictionary<string, object>() { };
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         if (request.CreatedBy != null)
         {
@@ -76,11 +76,11 @@ public class MappingClient
         }
         if (request.CreatedAfter != null)
         {
-            _query["createdAfter"] = request.CreatedAfter;
+            _query["createdAfter"] = request.CreatedAfter.Value.ToString("o0");
         }
         if (request.CreatedBefore != null)
         {
-            _query["createdBefore"] = request.CreatedBefore;
+            _query["createdBefore"] = request.CreatedBefore.Value.ToString("o0");
         }
         if (request.EnvironmentId != null)
         {
@@ -106,7 +106,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/mapping",
                 Query = _query
             }
         );
@@ -124,7 +124,7 @@ public class MappingClient
     public async Task<ProgramResponse> GetMappingProgramAsync(string programId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{programId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/mapping/{programId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -146,7 +146,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{programId}",
+                Path = $"/mapping/{programId}",
                 Body = request
             }
         );
@@ -164,7 +164,7 @@ public class MappingClient
     public async Task<Success> DeleteMappingProgramAsync(string programId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{programId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/mapping/{programId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -186,7 +186,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = $"/{programId}/rules",
+                Path = $"/mapping/{programId}/rules",
                 Body = request
             }
         );
@@ -210,7 +210,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Delete,
-                Path = $"/{programId}/rules",
+                Path = $"/mapping/{programId}/rules",
                 Body = request
             }
         );
@@ -228,7 +228,11 @@ public class MappingClient
     public async Task<MappingRulesResponse> ListRulesAsync(string programId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{programId}/rules" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Get,
+                Path = $"/mapping/{programId}/rules"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -247,7 +251,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = $"/{programId}/rules/{mappingId}"
+                Path = $"/mapping/{programId}/rules/{mappingId}"
             }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
@@ -271,7 +275,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{programId}/rules/{mappingId}",
+                Path = $"/mapping/{programId}/rules/{mappingId}",
                 Body = request
             }
         );
@@ -295,7 +299,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{programId}/rules",
+                Path = $"/mapping/{programId}/rules",
                 Body = request
             }
         );
@@ -316,7 +320,7 @@ public class MappingClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Delete,
-                Path = $"/{programId}/rules/{mappingId}"
+                Path = $"/mapping/{programId}/rules/{mappingId}"
             }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();

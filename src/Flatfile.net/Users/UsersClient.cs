@@ -30,25 +30,25 @@ public class UsersClient
         }
         if (request.SortField != null)
         {
-            _query["sortField"] = request.SortField;
+            _query["sortField"] = request.SortField.ToString();
         }
         if (request.SortDirection != null)
         {
-            _query["sortDirection"] = request.SortDirection;
+            _query["sortDirection"] = request.SortDirection.ToString();
         }
         if (request.PageSize != null)
         {
-            _query["pageSize"] = request.PageSize;
+            _query["pageSize"] = request.PageSize.ToString();
         }
         if (request.PageNumber != null)
         {
-            _query["pageNumber"] = request.PageNumber;
+            _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "/users",
+                Path = "users",
                 Query = _query
             }
         );
@@ -71,7 +71,7 @@ public class UsersClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "/users/invite",
+                Path = "users/invite",
                 Body = request
             }
         );
@@ -92,7 +92,7 @@ public class UsersClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = $"/users/{userId}/resend-invite"
+                Path = $"users/{userId}/resend-invite"
             }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
@@ -112,7 +112,7 @@ public class UsersClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/users/{userId}",
+                Path = $"users/{userId}",
                 Body = request
             }
         );
@@ -130,7 +130,7 @@ public class UsersClient
     public async Task<UserResponse> GetAsync(string userId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/users/{userId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"users/{userId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -146,7 +146,7 @@ public class UsersClient
     public async Task<Success> DeleteAsync(string userId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/users/{userId}" }
+            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"users/{userId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -162,7 +162,7 @@ public class UsersClient
     public async Task<ListActorRolesResponse> ListUserRolesAsync(string userId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/users/{userId}/roles" }
+            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"users/{userId}/roles" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -184,7 +184,7 @@ public class UsersClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = $"/users/{userId}/roles",
+                Path = $"users/{userId}/roles",
                 Body = request
             }
         );
@@ -205,7 +205,7 @@ public class UsersClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Delete,
-                Path = $"/users/{userId}/roles/{actorRoleId}"
+                Path = $"users/{userId}/roles/{actorRoleId}"
             }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();

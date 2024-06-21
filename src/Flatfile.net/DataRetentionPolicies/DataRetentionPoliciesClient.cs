@@ -30,7 +30,7 @@ public class DataRetentionPoliciesClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Get,
-                Path = "",
+                Path = "/data-retention-policies",
                 Query = _query
             }
         );
@@ -51,7 +51,7 @@ public class DataRetentionPoliciesClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Post,
-                Path = "",
+                Path = "/data-retention-policies",
                 Body = request
             }
         );
@@ -69,7 +69,11 @@ public class DataRetentionPoliciesClient
     public async Task<DataRetentionPolicyResponse> GetAsync(string id)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/{id}" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Get,
+                Path = $"/data-retention-policies/{id}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -91,7 +95,7 @@ public class DataRetentionPoliciesClient
             new RawClient.ApiRequest
             {
                 Method = HttpMethod.Patch,
-                Path = $"/{id}",
+                Path = $"/data-retention-policies/{id}",
                 Body = request
             }
         );
@@ -109,7 +113,11 @@ public class DataRetentionPoliciesClient
     public async Task<Success> DeleteAsync(string id)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/{id}" }
+            new RawClient.ApiRequest
+            {
+                Method = HttpMethod.Delete,
+                Path = $"/data-retention-policies/{id}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
