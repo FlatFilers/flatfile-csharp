@@ -17,7 +17,7 @@ public partial class Flatfile
                 { "xDisableHooks", $"true" },
                 { "X-Fern-Language", "C#" },
                 { "X-Fern-SDK-Name", "Flatfile.net" },
-                { "X-Fern-SDK-Version", "0.0.3" },
+                { "X-Fern-SDK-Version", "0.0.1" },
             },
             clientOptions ?? new ClientOptions()
         );
