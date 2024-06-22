@@ -57,7 +57,7 @@ public class SpacesClient
             _query["isCollaborative"] = request.IsCollaborative.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/spaces",
@@ -78,7 +78,7 @@ public class SpacesClient
     public async Task<SpaceResponse> CreateAsync(SpaceConfig request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/spaces",
@@ -99,7 +99,7 @@ public class SpacesClient
     public async Task<SpaceResponse> GetAsync(string spaceId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/spaces/{spaceId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/spaces/{spaceId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -115,7 +115,7 @@ public class SpacesClient
     public async Task<Success> DeleteAsync(string spaceId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/spaces/{spaceId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Delete, Path = $"/spaces/{spaceId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -132,7 +132,7 @@ public class SpacesClient
     {
         var _query = new Dictionary<string, object>() { { "spaceIds", request.SpaceIds }, };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = "/spaces",
@@ -153,7 +153,7 @@ public class SpacesClient
     public async Task<SpaceResponse> UpdateAsync(string spaceId, SpaceConfig request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/spaces/{spaceId}",
@@ -174,7 +174,7 @@ public class SpacesClient
     public async Task<Success> ArchiveSpaceAsync(string spaceId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/spaces/{spaceId}/archive"

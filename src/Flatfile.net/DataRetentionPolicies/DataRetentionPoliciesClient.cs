@@ -27,7 +27,7 @@ public class DataRetentionPoliciesClient
             _query["environmentId"] = request.EnvironmentId;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/data-retention-policies",
@@ -48,7 +48,7 @@ public class DataRetentionPoliciesClient
     public async Task<DataRetentionPolicyResponse> CreateAsync(DataRetentionPolicyConfig request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/data-retention-policies",
@@ -69,7 +69,7 @@ public class DataRetentionPoliciesClient
     public async Task<DataRetentionPolicyResponse> GetAsync(string id)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/data-retention-policies/{id}"
@@ -92,7 +92,7 @@ public class DataRetentionPoliciesClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/data-retention-policies/{id}",
@@ -113,7 +113,7 @@ public class DataRetentionPoliciesClient
     public async Task<Success> DeleteAsync(string id)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/data-retention-policies/{id}"

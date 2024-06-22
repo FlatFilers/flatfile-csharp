@@ -97,7 +97,7 @@ public class RecordsClient
             _query["q"] = request.Q;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/sheets/{sheetId}/records",
@@ -118,7 +118,7 @@ public class RecordsClient
     public async Task<VersionResponse> UpdateAsync(string sheetId, IEnumerable<Record> request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Put,
                 Path = $"/sheets/{sheetId}/records",
@@ -142,7 +142,7 @@ public class RecordsClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/sheets/{sheetId}/records",
@@ -164,7 +164,7 @@ public class RecordsClient
     {
         var _query = new Dictionary<string, object>() { { "ids", request.Ids }, };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/sheets/{sheetId}/records",
@@ -213,7 +213,7 @@ public class RecordsClient
             _query["q"] = request.Q;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Put,
                 Path = $"/sheets/{sheetId}/find-replace",

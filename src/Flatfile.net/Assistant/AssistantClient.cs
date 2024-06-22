@@ -29,7 +29,7 @@ public class AssistantClient
             _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/prompts",
@@ -50,7 +50,7 @@ public class AssistantClient
     public async Task<PromptResponse> GetAsync(string promptId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/prompts/{promptId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/prompts/{promptId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -66,7 +66,7 @@ public class AssistantClient
     public async Task<PromptResponse> UpdateAsync(string promptId, PromptPatch request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/prompts/{promptId}",
@@ -87,7 +87,7 @@ public class AssistantClient
     public async Task<PromptResponse> CreateAsync(PromptCreate request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/prompts",
@@ -108,7 +108,11 @@ public class AssistantClient
     public async Task<Success> DeleteAsync(string promptId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/prompts/{promptId}" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Delete,
+                Path = $"/prompts/{promptId}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

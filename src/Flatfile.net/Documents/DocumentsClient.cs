@@ -20,7 +20,7 @@ public class DocumentsClient
     public async Task<ListDocumentsResponse> ListAsync(string spaceId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/spaces/{spaceId}/documents"
@@ -40,7 +40,7 @@ public class DocumentsClient
     public async Task<DocumentResponse> CreateAsync(string spaceId, DocumentConfig request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/spaces/{spaceId}/documents",
@@ -61,7 +61,7 @@ public class DocumentsClient
     public async Task<DocumentResponse> GetAsync(string spaceId, string documentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/spaces/{spaceId}/documents/{documentId}"
@@ -85,7 +85,7 @@ public class DocumentsClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/spaces/{spaceId}/documents/{documentId}",
@@ -106,7 +106,7 @@ public class DocumentsClient
     public async Task<Success> DeleteAsync(string spaceId, string documentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/spaces/{spaceId}/documents/{documentId}"

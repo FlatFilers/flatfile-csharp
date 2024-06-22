@@ -50,7 +50,7 @@ public class JobsClient
             _query["sortDirection"] = request.SortDirection.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/jobs",
@@ -68,7 +68,7 @@ public class JobsClient
     public async Task<JobResponse> CreateAsync(JobConfig request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/jobs",
@@ -86,7 +86,7 @@ public class JobsClient
     public async Task<JobResponse> GetAsync(string jobId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/jobs/{jobId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/jobs/{jobId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -99,7 +99,7 @@ public class JobsClient
     public async Task<JobResponse> UpdateAsync(string jobId, JobUpdate request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/jobs/{jobId}",
@@ -117,7 +117,7 @@ public class JobsClient
     public async Task<Success> DeleteAsync(string jobId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/jobs/{jobId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Delete, Path = $"/jobs/{jobId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -133,7 +133,11 @@ public class JobsClient
     public async Task<Success> ExecuteAsync(string jobId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"/jobs/{jobId}/execute" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Post,
+                Path = $"/jobs/{jobId}/execute"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -149,7 +153,7 @@ public class JobsClient
     public async Task<JobPlanResponse> GetExecutionPlanAsync(string jobId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/jobs/{jobId}/plan" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/jobs/{jobId}/plan" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -168,7 +172,7 @@ public class JobsClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Put,
                 Path = $"/jobs/{jobId}/plan",
@@ -192,7 +196,7 @@ public class JobsClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/jobs/{jobId}/plan",
@@ -213,7 +217,7 @@ public class JobsClient
     public async Task<JobResponse> AckAsync(string jobId, JobAckDetails? request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/jobs/{jobId}/ack",
@@ -234,7 +238,7 @@ public class JobsClient
     public async Task<JobResponse> AckOutcomeAsync(string jobId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/jobs/{jobId}/outcome/ack"
@@ -254,7 +258,7 @@ public class JobsClient
     public async Task<JobResponse> CompleteAsync(string jobId, JobCompleteDetails? request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/jobs/{jobId}/complete",
@@ -275,7 +279,7 @@ public class JobsClient
     public async Task<JobResponse> FailAsync(string jobId, JobCompleteDetails? request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/jobs/{jobId}/fail",
@@ -296,7 +300,7 @@ public class JobsClient
     public async Task<JobResponse> CancelAsync(string jobId, JobCancelDetails? request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/jobs/{jobId}/cancel",
@@ -317,7 +321,7 @@ public class JobsClient
     public async Task<JobResponse> RetryAsync(string jobId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"/jobs/{jobId}/retry" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Post, Path = $"/jobs/{jobId}/retry" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -333,7 +337,7 @@ public class JobsClient
     public async Task<DiffRecordsResponse> PreviewMutationAsync(MutateJobConfig request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/jobs/preview-mutation",
@@ -354,7 +358,7 @@ public class JobsClient
     public async Task<JobResponse> SplitAsync(string jobId, JobSplitDetails request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/jobs/{jobId}/split",

@@ -29,7 +29,7 @@ public class ViewsClient
             _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/views",
@@ -50,7 +50,7 @@ public class ViewsClient
     public async Task<ViewResponse> CreateAsync(ViewCreate request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/views",
@@ -71,7 +71,7 @@ public class ViewsClient
     public async Task<ViewResponse> GetAsync(string viewId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/views/{viewId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/views/{viewId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -87,7 +87,7 @@ public class ViewsClient
     public async Task<ViewResponse> UpdateAsync(string viewId, ViewUpdate request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/views/{viewId}",
@@ -108,7 +108,7 @@ public class ViewsClient
     public async Task<Success> DeleteAsync(string viewId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/views/{viewId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Delete, Path = $"/views/{viewId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

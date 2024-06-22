@@ -21,7 +21,7 @@ public class SheetsClient
     {
         var _query = new Dictionary<string, object>() { { "workbookId", request.WorkbookId }, };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/sheets",
@@ -42,7 +42,7 @@ public class SheetsClient
     public async Task<SheetResponse> GetAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/sheets/{sheetId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/sheets/{sheetId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -58,7 +58,7 @@ public class SheetsClient
     public async Task<Success> DeleteAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/sheets/{sheetId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Delete, Path = $"/sheets/{sheetId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -74,7 +74,7 @@ public class SheetsClient
     public async Task<Success> ValidateAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/sheets/{sheetId}/validate"
@@ -139,7 +139,7 @@ public class SheetsClient
             _query["ids"] = request.Ids;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/sheets/{sheetId}/download",
@@ -198,7 +198,7 @@ public class SheetsClient
             _query["q"] = request.Q;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/sheets/{sheetId}/counts",
@@ -227,7 +227,7 @@ public class SheetsClient
             _query["completed"] = request.Completed.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/sheets/{sheetId}/commits",
@@ -248,7 +248,11 @@ public class SheetsClient
     public async Task<Success> LockSheetAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"/sheets/{sheetId}/lock" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Post,
+                Path = $"/sheets/{sheetId}/lock"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -264,7 +268,7 @@ public class SheetsClient
     public async Task<Success> UnlockSheetAsync(string sheetId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/sheets/{sheetId}/unlock"
@@ -327,7 +331,7 @@ public class SheetsClient
             _query["searchValue"] = request.SearchValue;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/sheets/{sheetId}/cells",
@@ -348,7 +352,7 @@ public class SheetsClient
     public async Task<SheetResponse> UpdateSheetAsync(string sheetId, SheetUpdateRequest request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/sheets/{sheetId}",

@@ -34,7 +34,7 @@ public class FilesClient
             _query["mode"] = request.Mode.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/files",
@@ -52,7 +52,7 @@ public class FilesClient
     public async Task<FileResponse> UploadAsync(CreateFileRequest request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = "/files" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Post, Path = "/files" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -65,7 +65,7 @@ public class FilesClient
     public async Task<FileResponse> GetAsync(string fileId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/files/{fileId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/files/{fileId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -78,7 +78,7 @@ public class FilesClient
     public async Task<Success> DeleteAsync(string fileId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/files/{fileId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Delete, Path = $"/files/{fileId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -94,7 +94,7 @@ public class FilesClient
     public async Task<FileResponse> UpdateAsync(string fileId, UpdateFileRequest request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/files/{fileId}",
@@ -112,7 +112,11 @@ public class FilesClient
     public async void DownloadAsync(string fileId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/files/{fileId}/download" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Get,
+                Path = $"/files/{fileId}/download"
+            }
         );
     }
 }

@@ -21,7 +21,7 @@ public class AgentsClient
             { "environmentId", request.EnvironmentId },
         };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/agents",
@@ -43,7 +43,7 @@ public class AgentsClient
             { "environmentId", request.EnvironmentId },
         };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/agents",
@@ -66,7 +66,7 @@ public class AgentsClient
             { "environmentId", request.EnvironmentId },
         };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/agents/{agentId}",
@@ -87,7 +87,11 @@ public class AgentsClient
     public async Task<ListActorRolesResponse> ListAgentRolesAsync(string agentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/agents/{agentId}/roles" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Get,
+                Path = $"/agents/{agentId}/roles"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -106,7 +110,7 @@ public class AgentsClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/agents/{agentId}/roles",
@@ -127,7 +131,7 @@ public class AgentsClient
     public async Task<Success> DeleteAgentRoleAsync(string agentId, string actorRoleId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/agents/{agentId}/roles/{actorRoleId}"
@@ -151,7 +155,7 @@ public class AgentsClient
             { "environmentId", request.EnvironmentId },
         };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/agents/{agentId}/logs",
@@ -176,7 +180,7 @@ public class AgentsClient
             { "environmentId", request.EnvironmentId },
         };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/agents/log/{eventId}",
@@ -216,7 +220,7 @@ public class AgentsClient
             _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/agents/logs",
@@ -256,7 +260,7 @@ public class AgentsClient
             _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/agents/executions",
@@ -281,7 +285,7 @@ public class AgentsClient
             { "environmentId", request.EnvironmentId },
         };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/agents/{agentId}",

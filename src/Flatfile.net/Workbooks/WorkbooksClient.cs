@@ -29,7 +29,7 @@ public class WorkbooksClient
             _query["includeCounts"] = request.IncludeCounts.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/workbooks",
@@ -50,7 +50,7 @@ public class WorkbooksClient
     public async Task<WorkbookResponse> CreateAsync(CreateWorkbookConfig request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/workbooks",
@@ -71,7 +71,11 @@ public class WorkbooksClient
     public async Task<WorkbookResponse> GetAsync(string workbookId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/workbooks/{workbookId}" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Get,
+                Path = $"/workbooks/{workbookId}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -87,7 +91,7 @@ public class WorkbooksClient
     public async Task<Success> DeleteAsync(string workbookId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/workbooks/{workbookId}"
@@ -107,7 +111,7 @@ public class WorkbooksClient
     public async Task<WorkbookResponse> UpdateAsync(string workbookId, WorkbookUpdate request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/workbooks/{workbookId}",
@@ -136,7 +140,7 @@ public class WorkbooksClient
             _query["completed"] = request.Completed.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/workbooks/{workbookId}/commits",

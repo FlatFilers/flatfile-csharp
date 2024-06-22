@@ -25,7 +25,7 @@ public class GuestsClient
             _query["email"] = request.Email;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "guests",
@@ -46,7 +46,7 @@ public class GuestsClient
     public async Task<CreateGuestResponse> CreateAsync(IEnumerable<GuestConfig> request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "guests",
@@ -67,7 +67,7 @@ public class GuestsClient
     public async Task<GuestResponse> GetAsync(string guestId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"guests/{guestId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"guests/{guestId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -83,7 +83,7 @@ public class GuestsClient
     public async Task<Success> DeleteAsync(string guestId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"guests/{guestId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Delete, Path = $"guests/{guestId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -99,7 +99,7 @@ public class GuestsClient
     public async Task<GuestResponse> UpdateAsync(string guestId, GuestConfigUpdate request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"guests/{guestId}",
@@ -128,7 +128,7 @@ public class GuestsClient
             _query["spaceId"] = request.SpaceId;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"guests/{guestId}/token",
@@ -149,7 +149,11 @@ public class GuestsClient
     public async Task<ListActorRolesResponse> ListGuestRolesAsync(string guestId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"guests/{guestId}/roles" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Get,
+                Path = $"guests/{guestId}/roles"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -168,7 +172,7 @@ public class GuestsClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"guests/{guestId}/roles",
@@ -189,7 +193,7 @@ public class GuestsClient
     public async Task<Success> DeleteGuestRoleAsync(string guestId, string actorRoleId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"guests/{guestId}/roles/{actorRoleId}"
@@ -209,7 +213,7 @@ public class GuestsClient
     public async Task<Success> InviteAsync(IEnumerable<Invite> request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "invitations",

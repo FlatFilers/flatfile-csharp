@@ -20,7 +20,7 @@ public class SnapshotsClient
     public async Task<SnapshotResponse> CreateSnapshotAsync(CreateSnapshotRequest request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/snapshots",
@@ -42,7 +42,7 @@ public class SnapshotsClient
     {
         var _query = new Dictionary<string, object>() { { "sheetId", request.SheetId }, };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/snapshots",
@@ -70,7 +70,7 @@ public class SnapshotsClient
             { "includeSummary", request.IncludeSummary.ToString() },
         };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/snapshots/{snapshotId}",
@@ -91,7 +91,7 @@ public class SnapshotsClient
     public async Task<Success> DeleteSnapshotAsync(string snapshotId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/snapshots/{snapshotId}"
@@ -114,7 +114,7 @@ public class SnapshotsClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/snapshots/{snapshotId}/restore",
@@ -151,7 +151,7 @@ public class SnapshotsClient
             _query["changeType"] = request.ChangeType.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/snapshots/{snapshotId}/records",

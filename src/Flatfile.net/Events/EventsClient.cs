@@ -53,7 +53,7 @@ public class EventsClient
             _query["includeAcknowledged"] = request.IncludeAcknowledged.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "events",
@@ -71,7 +71,7 @@ public class EventsClient
     public async Task<EventResponse> CreateAsync(CreateEventConfig request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "events",
@@ -89,7 +89,7 @@ public class EventsClient
     public async Task<EventResponse> GetAsync(string eventId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"events/{eventId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"events/{eventId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -102,7 +102,11 @@ public class EventsClient
     public async Task<Success> AckAsync(string eventId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Post, Path = $"events/{eventId}/ack" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Post,
+                Path = $"events/{eventId}/ack"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -127,7 +131,7 @@ public class EventsClient
             _query["spaceId"] = request.SpaceId;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "subscription",

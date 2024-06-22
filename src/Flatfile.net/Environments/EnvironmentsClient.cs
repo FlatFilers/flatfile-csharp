@@ -29,7 +29,7 @@ public class EnvironmentsClient
             _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/environments",
@@ -50,7 +50,7 @@ public class EnvironmentsClient
     public async Task<EnvironmentResponse> CreateAsync(EnvironmentConfigCreate request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/environments",
@@ -77,7 +77,7 @@ public class EnvironmentsClient
             { "environmentId", request.EnvironmentId },
         };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/environments/subscription-token",
@@ -98,7 +98,7 @@ public class EnvironmentsClient
     public async Task<EnvironmentResponse> GetAsync(string environmentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/environments/{environmentId}"
@@ -121,7 +121,7 @@ public class EnvironmentsClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/environments/{environmentId}",
@@ -142,7 +142,7 @@ public class EnvironmentsClient
     public async Task<Success> DeleteAsync(string environmentId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/environments/{environmentId}"

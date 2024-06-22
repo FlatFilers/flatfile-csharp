@@ -20,7 +20,7 @@ public class AppsClient
     public async Task<AppsResponse> ListAsync()
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = "/apps" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = "/apps" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -36,7 +36,7 @@ public class AppsClient
     public async Task<AppResponse> GetAsync(string appId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/apps/{appId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/apps/{appId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -52,7 +52,7 @@ public class AppsClient
     public async Task<AppResponse> UpdateAsync(string appId, AppPatch request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/apps/{appId}",
@@ -73,7 +73,7 @@ public class AppsClient
     public async Task<AppResponse> CreateAsync(AppCreate request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/apps",
@@ -94,7 +94,7 @@ public class AppsClient
     public async Task<SuccessResponse> DeleteAsync(string appId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/apps/{appId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Delete, Path = $"/apps/{appId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

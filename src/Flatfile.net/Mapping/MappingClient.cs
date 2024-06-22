@@ -20,7 +20,7 @@ public class MappingClient
     public async Task<ProgramResponse> CreateMappingProgramAsync(ProgramConfig request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/mapping",
@@ -41,7 +41,7 @@ public class MappingClient
     public async Task<Success> DeleteAllHistoryForUserAsync(DeleteAllHistoryForUserRequest request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = "/mapping",
@@ -103,7 +103,7 @@ public class MappingClient
             _query["destinationKeys"] = request.DestinationKeys;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/mapping",
@@ -124,7 +124,7 @@ public class MappingClient
     public async Task<ProgramResponse> GetMappingProgramAsync(string programId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/mapping/{programId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/mapping/{programId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -143,7 +143,7 @@ public class MappingClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/mapping/{programId}",
@@ -164,7 +164,11 @@ public class MappingClient
     public async Task<Success> DeleteMappingProgramAsync(string programId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/mapping/{programId}" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Delete,
+                Path = $"/mapping/{programId}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -183,7 +187,7 @@ public class MappingClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/mapping/{programId}/rules",
@@ -207,7 +211,7 @@ public class MappingClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/mapping/{programId}/rules",
@@ -228,7 +232,7 @@ public class MappingClient
     public async Task<MappingRulesResponse> ListRulesAsync(string programId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/mapping/{programId}/rules"
@@ -248,7 +252,7 @@ public class MappingClient
     public async Task<MappingRuleResponse> GetRuleAsync(string programId, string mappingId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = $"/mapping/{programId}/rules/{mappingId}"
@@ -272,7 +276,7 @@ public class MappingClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/mapping/{programId}/rules/{mappingId}",
@@ -296,7 +300,7 @@ public class MappingClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"/mapping/{programId}/rules",
@@ -317,7 +321,7 @@ public class MappingClient
     public async Task<Success> DeleteRuleAsync(string programId, string mappingId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"/mapping/{programId}/rules/{mappingId}"

@@ -21,7 +21,7 @@ public class EntitlementsClient
     {
         var _query = new Dictionary<string, object>() { { "resourceId", request.ResourceId }, };
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/entitlements",

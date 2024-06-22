@@ -29,7 +29,7 @@ public class SecretsClient
             _query["spaceId"] = request.SpaceId;
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "/secrets",
@@ -50,7 +50,7 @@ public class SecretsClient
     public async Task<SecretsResponse> UpsertAsync(WriteSecret request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "/secrets",
@@ -71,7 +71,11 @@ public class SecretsClient
     public async Task<SecretsResponse> DeleteAsync(string secretId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"/secrets/{secretId}" }
+            new RawClient.JsonApiRequest
+            {
+                Method = HttpMethod.Delete,
+                Path = $"/secrets/{secretId}"
+            }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)

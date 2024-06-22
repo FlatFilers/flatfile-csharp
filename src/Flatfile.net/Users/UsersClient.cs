@@ -45,7 +45,7 @@ public class UsersClient
             _query["pageNumber"] = request.PageNumber.ToString();
         }
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Get,
                 Path = "users",
@@ -68,7 +68,7 @@ public class UsersClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = "users/invite",
@@ -89,7 +89,7 @@ public class UsersClient
     public async Task<Success> ResendInviteAsync(string userId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"users/{userId}/resend-invite"
@@ -109,7 +109,7 @@ public class UsersClient
     public async Task<UserResponse> UpdateAsync(string userId, UpdateUserRequest request)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Patch,
                 Path = $"users/{userId}",
@@ -130,7 +130,7 @@ public class UsersClient
     public async Task<UserResponse> GetAsync(string userId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"users/{userId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"users/{userId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -146,7 +146,7 @@ public class UsersClient
     public async Task<Success> DeleteAsync(string userId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Delete, Path = $"users/{userId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Delete, Path = $"users/{userId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -162,7 +162,7 @@ public class UsersClient
     public async Task<ListActorRolesResponse> ListUserRolesAsync(string userId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"users/{userId}/roles" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"users/{userId}/roles" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -181,7 +181,7 @@ public class UsersClient
     )
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"users/{userId}/roles",
@@ -202,7 +202,7 @@ public class UsersClient
     public async Task<Success> DeleteUserRoleAsync(string userId, string actorRoleId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Delete,
                 Path = $"users/{userId}/roles/{actorRoleId}"

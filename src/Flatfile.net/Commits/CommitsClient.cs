@@ -20,7 +20,7 @@ public class CommitsClient
     public async Task<CommitResponse> GetAsync(string commitId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest { Method = HttpMethod.Get, Path = $"/commits/{commitId}" }
+            new RawClient.JsonApiRequest { Method = HttpMethod.Get, Path = $"/commits/{commitId}" }
         );
         string responseBody = await response.Raw.Content.ReadAsStringAsync();
         if (response.StatusCode >= 200 && response.StatusCode < 400)
@@ -36,7 +36,7 @@ public class CommitsClient
     public async Task<Success> CompleteAsync(string commitId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/commits/{commitId}/complete"
@@ -56,7 +56,7 @@ public class CommitsClient
     public async Task<Success> ReplayAsync(string commitId)
     {
         var response = await _client.MakeRequestAsync(
-            new RawClient.ApiRequest
+            new RawClient.JsonApiRequest
             {
                 Method = HttpMethod.Post,
                 Path = $"/commits/{commitId}/replay"
